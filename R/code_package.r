@@ -1054,13 +1054,13 @@ lines(u,log(1-yhat.epd)+log(q), col="red", lty=1, lwd=1.5)
 lines(u,log(1-yhat.par2)+log(q),col="green", lty=3, lwd=1.5)
 legend("topright", legend=c("Pareto 1", "GPD", "EPD"), col=c("blue","green", "red"), lty=c(2,3,1))
 }
-res90=TopShare(data, p=p, q=.10, method="pareto1")
+res90=Top_Share(data, p=p, q=.10, method="pareto1")
 if(viz) abline(v=log(res90$threshold), col="lightgrey", lty=2)  # percentile 90
 if(viz) legend(log(res90$threshold)-top.x, top.y, legend=expression(italic('q')[90]), cex=.9, bty="n")
-res95=TopShare(data, p=p, q=.05, method="pareto1")
+res95=Top_Share(data, p=p, q=.05, method="pareto1")
 if(viz) abline(v=log(res95$threshold), col="lightgrey", lty=2)  # percentile 95
 if(viz) legend(log(res95$threshold)-top.x, top.y, legend=expression(italic('q')[95]), cex=.9, bty="n")
-res99=TopShare(data, p=p, q=.01, method="pareto1")
+res99=Top_Share(data, p=p, q=.01, method="pareto1")
 if(viz) abline(v=log(res99$threshold), col="lightgrey", lty=2)  # percentile 99
 legend(log(res99$threshold)-top.x, top.y, legend=expression(italic('q')[99]), cex=.9, bty="n")
 }
@@ -1123,7 +1123,7 @@ if(md){
 
     return(list(TopShare=res,TailIndex=alpha))}
 
-#' Top Income plot
+#' Top Incomea plot
 #'
 #' @param data dataframe obtained from \code{\link{tidy_income}} function
 #' @param p probability level (default 0.01)
@@ -1134,8 +1134,8 @@ if(md){
 #' url_1 <- "https://github.com/freakonometrics/TopIncome/raw/master/data_csv/dataframe_yw_1.csv"
 #' df <- read.table(url_1,sep=";",header=TRUE)
 #' data_1  <-  tidy_income(income = df$y, weights = df$w)
-#' \dontrun{Top_Income(data_1)}
-Top_Income = function(data, p=.01, thr=seq(.85,.999,by=.001), tail_index = TRUE,...){
+#' \dontrun{Top_Incomes(data_1)}
+Top_Incomes = function(data, p=.01, thr=seq(.85,.999,by=.001), tail_index = TRUE,...){
 thr=round(thr,10)
 tail=matrix(0,NROW(thr),7)
 tis.index=matrix(0,NROW(thr),7)
