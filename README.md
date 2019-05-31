@@ -1,3 +1,4 @@
+Pareto Models for Top Incomes
 ================
 Arthur Charpentier & Emmanuel Flachaire
 
