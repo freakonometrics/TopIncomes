@@ -113,14 +113,13 @@ data,
 ``` r
 url_1 <- "https://github.com/freakonometrics/TopIncome/raw/master/data_csv/dataframe_yw_1.csv"
 df <- read.table(url_1,sep=";",header=TRUE)
-data_1  <-  tidy_income(income = df$y, weights = df$w)
-Pareto_diagram(data_1)
+Pareto_diagram(data=df$y, weights=df$w)
 ```
 
 ![](TopIncomes_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
-T <- Table_Top_Share(data_1, p=.01)
+T <- Table_Top_Share(data=df$y, weights=df$w, p=.01)
 ```
 
 Tail index ![](http://latex.codecogs.com/gif.latex?%5Calpha), for three
@@ -170,7 +169,7 @@ See also (to get automatically tables in a markdown
 format)
 
 ``` r
-# T <- Table_Top_Share(data_1, p=.01, md=TRUE)
+# T <- Table_Top_Share(data=df$y, weights=df$w, p=.01, md=TRUE)
 ```
 
 ``` r
