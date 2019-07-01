@@ -2,7 +2,7 @@ Pareto Models for Top Incomes
 ================
 Arthur Charpentier & Emmanuel Flachaire
 
-# Install the `TopIncome` library
+# Install the `TopIncomes` library
 
 The `TopIncome` library can be installed from *github*,
 
@@ -105,7 +105,7 @@ estim
     ## $tau
     ## [1] -3.342535
 
-# Application to Income
+# Application to Income Data
 
 Consider some simulated
 data,
