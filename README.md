@@ -9,12 +9,6 @@ The `TopIncome` library can be installed from *github*,
 ``` r
 library(devtools)
 devtools::install_github("freakonometrics/TopIncomes")
-```
-
-    ## Skipping install of 'TopIncomes' from a github remote, the SHA1 (a5fa2bba) has not changed since last install.
-    ##   Use `force = TRUE` to force installation
-
-``` r
 library(TopIncomes)
 ```
 
