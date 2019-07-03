@@ -4,7 +4,7 @@ Arthur Charpentier & Emmanuel Flachaire
 
 # Install the `TopIncomes` library
 
-The `TopIncome` library can be installed from *github*,
+The `TopIncomes` library can be installed from *github*,
 
 ``` r
 library(devtools)
@@ -23,12 +23,12 @@ w <- rgamma(n,10,10)
 
 ## Pareto 1
 
-The **Pareto type 1** distribution is bounded from below by \(u>0\), and
-with tail parameter ![](http://latex.codecogs.com/gif.latex?%5Calpha) it
-has the cumulative distribution function
+The **Pareto type 1** distribution is bounded from below by a threshold
+u\>0: the cumulative distribution function is
 ![](http://latex.codecogs.com/gif.latex?%5Cdisplaystyle%7BF\(x\)%3D1-%5Cleft\(%5Cfrac%7Bx%7D%7Bu%7D%5Cright\)%5E%7B-%5Calpha%7D%7D)
-for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). Note that the
-tail index is
+for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). The function
+returns the tail index parameter
+![](http://latex.codecogs.com/gif.latex?%5Calpha) and also
 ![](http://latex.codecogs.com/gif.latex?%5Cxi%3D1/%5Calpha).
 
 ``` r
@@ -47,14 +47,12 @@ estim
 
 ## Generalized Pareto
 
-The **Generalized Pareto** distribution is bounded from below by
-\(u>0\), with tail parameter
-![](http://latex.codecogs.com/gif.latex?%5Calpha) : the cumulative
-distribution function is
+The **Generalized Pareto** distribution is bounded from below by a
+threshold u\>0: the cumulative distribution function is
 ![](http://latex.codecogs.com/gif.latex?%5Cdisplaystyle%7BF\(x\)%3D1-%5Cleft%5B1+%5Cleft\(%5Cfrac%7Bx-u%7D%7B%5Csigma%7D%5Cright\)%5Cright%5D%5E%7B-%5Calpha%7D%7D)
-for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). Note that the
-tail index is
-![](http://latex.codecogs.com/gif.latex?%5Cxi%3D1/%5Calpha).
+for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). The function
+returns ![](http://latex.codecogs.com/gif.latex?%5Cxi%3D1/%5Calpha) and
+![](http://latex.codecogs.com/gif.latex?%5Cbeta%3D%5Csigma/%5Calpha).
 
 ``` r
 estim <- MLE.gpd(data=x, weights=w, threshold=1)
@@ -75,12 +73,13 @@ estim
 
 ## Extended Pareto
 
-The **Extended Pareto** distribution is bounded from below by \(u>0\),
-and has cumulative distribution function
+The **Extended Pareto** distribution is bounded from below by a
+threshold u\>0 : the cumulative distribution function is
 ![](http://latex.codecogs.com/gif.latex?%5Cdisplaystyle%7BF\(x\)%3D1-%5Cleft%5B%5Cfrac%7Bx%7D%7Bu%7D%5Cleft\(1+%5Cdelta-%5Cdelta%5Cleft\(%5Cfrac%7Bx%7D%7Bu%7D%5Cright\)%5E%5Ctau%5Cright\)%5Cright%5D%5E%7B-%5Calpha%7D%20%7D)
-for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). Note that the
-tail index is
-![](http://latex.codecogs.com/gif.latex?%5Cxi%3D1/%5Calpha).
+for ![](http://latex.codecogs.com/gif.latex?x%5Cgeq%20u). The function
+returns ![](http://latex.codecogs.com/gif.latex?%5Ckappa%3D%5Cdelta),
+![](http://latex.codecogs.com/gif.latex?%5Ctau) and
+![](http://latex.codecogs.com/gif.latex?%5Cgamma%3D1/%5Calpha)
 
 ``` r
 estim <- EPD(data=x, weights=w)
@@ -99,75 +98,149 @@ estim
     ## $tau
     ## [1] -3.342535
 
-# Application to Income Data
+# Application to Income
 
-Consider some simulated
-data,
+Let us consider a sample of simulated data, obtained from a
+Singh-Maddala distribution, and some weights:
 
 ``` r
-url_1 <- "https://github.com/freakonometrics/TopIncome/raw/master/data_csv/dataframe_yw_1.csv"
-df <- read.table(url_1,sep=";",header=TRUE)
+qsinmad <- function(u,b,a,q) b*((1-u)^(-1/q)-1)^(1/a)   
+rsinmad <- function(n,b,a,q) qsinmad(runif(n), b, a, q)
+y=rsinmad(10000,1.14,2.07,1.75)
+w=rnorm(10000,1,.2)
+df <- data.frame(y,w)
 Pareto_diagram(data=df$y, weights=df$w)
 ```
 
-![](TopIncomes_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Top_Incomes_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+## Tail index and top share estimation
+
+The Top\_Share function can be used to estimate both the tail index
+![](http://latex.codecogs.com/gif.latex?%5Calpha) and the top
+(100p)%-share, for different thresholds to model a Pareto distribution.
 
 ``` r
-T <- Table_Top_Share(data=df$y, weights=df$w, p=.01)
+Top_Share(data=df$y, weights=df$w, p=.01, q=c(.1,.05,.01), method="epd")
 ```
 
-Tail index ![](http://latex.codecogs.com/gif.latex?%5Calpha), for three
-fited distributions
+    ## $index
+    ## [1] 0.05441454 0.05561878 0.05674839
+    ## 
+    ## $alpha
+    ## [1] 3.522159 3.194093 2.687786
+    ## 
+    ## $tau
+    ## [1] -2.990151 -3.343859 -3.284152
+    ## 
+    ## $kappa
+    ## [1] -0.09567039  0.02726408  0.13831860
+    ## 
+    ## $gamma
+    ## [1] 0.2839168 0.3130779 0.3720534
+    ## 
+    ## $share.index
+    ## [1] 0.01
+    ## 
+    ## $share.pareto
+    ## [1] 0.10 0.05 0.01
+    ## 
+    ## $threshold
+    ## [1] 1.805970 2.320460 3.787607
+    ## 
+    ## $k
+    ## [1] 1009  506   99
+    ## 
+    ## $method
+    ## [1] "epd"
+
+## Tables
+
+For a few different thresholds, we can show the results with Tables.
+
+Let us consider a Pareto distribution fitted on the 10%, 5% and 1%
+highest observations:
 
 ``` r
-T$TailIndex
+thresholds=c(.1,.05,.01)
+res1=Top_Share(df$y,df$w,p=.01,q=thresholds, method="pareto1")
+res2=Top_Share(df$y,df$w,p=.01,q=thresholds, method="gpd")
+res3=Top_Share(df$y,df$w,p=.01,q=thresholds, method="epd")
 ```
 
-    ##             top90%    top95%    top99%
-    ## cutoff   90.000000 95.000000 99.000000
-    ## Pareto 1  1.713197  1.959476  2.187579
-    ## GPD       2.920797  3.017690 18.662425
-    ## EPD       2.279386  2.343399  4.809314
-
-|           |   top90% |   top95% |    top99% |
-| --------- | -------: | -------: | --------: |
-| Pareto\_1 | 1.713197 | 1.959476 |  2.187579 |
-| GPD       | 2.920797 | 3.017690 | 18.662425 |
-| EPD       | 2.279387 | 2.343399 |  4.809314 |
-
-Tail Index (alpha)
-
-Top share income, for three fited distributions
+For the tail index, we would have the following Table:
 
 ``` r
-T$TopShare
+res=rbind((res1$share.pareto),res1$alpha,res2$alpha,res3$alpha)
+rownames(res) <- c("q","Pareto 1", "GPD", "EPD")
+print("Table of top share indices")
 ```
 
-    ##              top90%     top95%     top99%
-    ## cutoff   90.0000000 95.0000000 99.0000000
-    ## edf       0.1284910  0.1284910  0.1284910
-    ## Pareto 1  0.1997239  0.1641696  0.1503932
-    ## GPD       0.1392083  0.1389045  0.1397348
-    ## EPD       0.1166443  0.1242985  0.1390286
-
-|           |   top90% |   top95% |   top99% |
-| --------- | -------: | -------: | -------: |
-| EDF       | 12.84910 | 12.84910 | 12.84910 |
-| Pareto\_1 | 19.97239 | 16.41696 | 15.03932 |
-| GPD       | 13.92083 | 13.89045 | 13.97348 |
-| EPD       | 11.66442 | 12.42985 | 13.90286 |
-
-Top Share (in percent)
-
-See also (to get automatically tables in a markdown
-format)
+    ## [1] "Table of top share indices"
 
 ``` r
-# T <- Table_Top_Share(data=df$y, weights=df$w, p=.01, md=TRUE)
+res
 ```
+
+    ##              [,1]     [,2]     [,3]
+    ## q        0.100000 0.050000 0.010000
+    ## Pareto 1 2.990486 3.307817 3.277460
+    ## GPD      4.239389 3.095112 2.852529
+    ## EPD      3.522159 3.194093 2.687786
+
+For the top 1% share, we would have the following Table:
 
 ``` r
-Top_Incomes(data_1)
+res=rbind(res1$share.pareto,res1$index,res2$index,res3$index)
+rownames(res) <- c("q","Pareto 1", "GPD", "EPD")
+print("Table of top share indices")
 ```
 
-![](TopIncomes_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->![](TopIncomes_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+    ## [1] "Table of top share indices"
+
+``` r
+res
+```
+
+    ##                [,1]       [,2]       [,3]
+    ## q        0.10000000 0.05000000 0.01000000
+    ## Pareto 1 0.05954651 0.05516742 0.05555417
+    ## GPD      0.05440980 0.05583339 0.05590763
+    ## EPD      0.05441454 0.05561878 0.05674839
+
+## Figures
+
+For a many different thresholds, we can show a Figure, similar to Hill
+plot for the Hill estimator of the tail index (Pareto 1 case).
+
+Let us consider a Pareto distribution fitted on the 20% to 1% highest
+observations:
+
+``` r
+thresholds=seq(.2,.01,-.01)
+res1=Top_Share(df$y,df$w,p=.01,q=thresholds, method="pareto1")
+res2=Top_Share(df$y,df$w,p=.01,q=thresholds, method="gpd")
+res3=Top_Share(df$y,df$w,p=.01,q=thresholds, method="epd")
+```
+
+For the tail index, we would have the following
+Figure:
+
+``` r
+plot(res1$k,res1$alpha, col="blue", main="Pareto tail indices", ylim=c(2,5), type="l")
+lines(res2$k,res2$alpha, col="green")
+lines(res3$k,res3$alpha, col="red")
+```
+
+![](Top_Incomes_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+For the top 1% share, we would have the following
+Table:
+
+``` r
+plot(res1$k,res1$index, col="blue", main="Top 1% share indices", ylim=c(0.02,.08), type="l")
+lines(res2$k,res2$index, col="green")
+lines(res3$k,res3$index, col="red")
+```
+
+![](Top_Incomes_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
