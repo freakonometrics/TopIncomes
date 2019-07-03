@@ -934,9 +934,12 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
     # method="edf" : sample top share, that is, based on the EDF
     # method="pareto1" : EDF+Pareto1
     #
-    x = data
-    if (min(weights)<0) stop('Error: weights should be positive \n\n')
-     weights = weights/sum(weights)
+  if (min(weights)<0) stop('Error: weights should be positive \n\n')
+  w = weights/sum(weights)
+  x = data
+  idx = order(x)
+  x=x[idx]
+  w=w[idx]
     if (p>1) stop('Error: p should be smaller than 1 \n\n')
     if (p<0) stop('Error: p should be greater than 0 \n\n')
     ## Top Share based on Pareto I and GPD Models
