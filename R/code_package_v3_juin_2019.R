@@ -1016,10 +1016,10 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
         delta=coef$kappa
         tau=coef$tau
         alpha <- 1/coef$gamma
-        
+         xq = Hmisc::wtd.mean(x[x < u], weights = weights[x < u])
         up=Hmisc::wtd.quantile(x, weights=weights, probs=1-p, normwt=TRUE)
         up=as.numeric(up)
-        xp = xq = Hmisc::wtd.mean(x[x<up], weights=weights[x<up])
+        xp = Hmisc::wtd.mean(x[x<up], weights=weights[x<up])
 
         pextpareto=function(x, u=1, delta=0, tau=-1, alpha){#Compute CDF
             d=1-((x/u)*(1+delta-delta*(x/u)^tau))^(-alpha)
