@@ -12,13 +12,6 @@ devtools::install_github("freakonometrics/TopIncomes")
 library(TopIncomes)
 ```
 
-    ## 
-    ## Attaching package: 'TopIncomes'
-
-    ## The following objects are masked from 'package:VGAM':
-    ## 
-    ##     dgpd, pgpd, rgpd
-
 # Fitting Pareto Models
 
 ``` r
@@ -132,19 +125,19 @@ Top_Share(data=df$y, weights=df$w, p=.01, q=c(.1,.05,.01), method="epd")
 ```
 
     ## $index
-    ## [1] 0.05496335 0.05633313 0.05703518
+    ## [1] 0.05423371 0.05587803 0.05611615
     ## 
     ## $alpha
-    ## [1] 3.475826 3.187573 2.882025
+    ## [1] 3.542328 3.192067 2.977480
     ## 
     ## $tau
-    ## [1] -2.993696 -3.277547 -3.169789
+    ## [1] -2.993838 -3.312784 -3.286053
     ## 
     ## $kappa
-    ## [1] -0.08829693  0.01641172  0.05708996
+    ## [1] -0.09802974  0.02217434  0.05944143
     ## 
     ## $gamma
-    ## [1] 0.2877014 0.3137183 0.3469782
+    ## [1] 0.2823002 0.3132766 0.3358545
     ## 
     ## $share.index
     ## [1] 0.01
@@ -153,10 +146,10 @@ Top_Share(data=df$y, weights=df$w, p=.01, q=c(.1,.05,.01), method="epd")
     ## [1] 0.10 0.05 0.01
     ## 
     ## $threshold
-    ## [1] 1.816260 2.328830 3.790648
+    ## [1] 1.805970 2.320460 3.787607
     ## 
     ## $k
-    ## [1] 995 498  98
+    ## [1] 1009  506   99
     ## 
     ## $method
     ## [1] "epd"
@@ -191,9 +184,9 @@ res
 
     ##              [,1]     [,2]     [,3]
     ## q        0.100000 0.050000 0.010000
-    ## Pareto 1 2.991790 3.267151 3.164932
-    ## GPD      4.032287 3.093852 2.710459
-    ## EPD      3.475826 3.187573 2.882025
+    ## Pareto 1 2.990486 3.307817 3.277460
+    ## GPD      4.239389 3.095112 2.852529
+    ## EPD      3.542328 3.192067 2.977480
 
 For the top 1% share, we would have the following Table:
 
@@ -211,9 +204,9 @@ res
 
     ##                [,1]       [,2]       [,3]
     ## q        0.10000000 0.05000000 0.01000000
-    ## Pareto 1 0.05974219 0.05587623 0.05634723
-    ## GPD      0.05516428 0.05643952 0.05680662
-    ## EPD      0.05496335 0.05633313 0.05703518
+    ## Pareto 1 0.05954651 0.05516742 0.05555417
+    ## GPD      0.05440980 0.05583339 0.05590763
+    ## EPD      0.05423371 0.05587803 0.05611615
 
 ## Figures
 
@@ -230,8 +223,7 @@ res2=Top_Share(df$y,df$w,p=.01,q=thresholds, method="gpd")
 res3=Top_Share(df$y,df$w,p=.01,q=thresholds, method="epd")
 ```
 
-For the tail index, we would have the following
-Figure:
+For the tail index, we would have the following Figure:
 
 ``` r
 plot(res1$k,res1$alpha, col="blue", main="Pareto tail indices", ylim=c(2,5), type="l")
@@ -241,8 +233,7 @@ lines(res3$k,res3$alpha, col="red")
 
 ![](Top_Incomes_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
-For the top 1% share, we would have the following
-Table:
+For the top 1% share, we would have the following Table:
 
 ``` r
 plot(res1$k,res1$index, col="blue", main="Top 1% share indices", ylim=c(0.02,.08), type="l")
