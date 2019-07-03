@@ -24,7 +24,7 @@ Random generation of the Pareto 1 distribution
 \examples{
 set.seed(123)
 rpareto1(6, 1, alpha=1.5)
-# expected value of a Pareto1(1,1.5) 
+# expected value of a Pareto1(1,1.5)
 mean(rpareto1(1e6, 1, alpha=1.5))
 # theoretical expected value
 1*(1.5)/(1.5-1)

@@ -24,7 +24,7 @@ Quantile function of the Pareto 1 distribution
 \examples{
 qpareto1(.5, 1, alpha=1.5)
 1.587401
-# expected value of a Pareto1(1,1.5) 
+# expected value of a Pareto1(1,1.5)
 integrate(function(x) qpareto1(x, 1, alpha=1.5),0,1)
 # theoretical expected value
 1*(1.5)/(1.5-1)

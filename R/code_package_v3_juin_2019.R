@@ -5,12 +5,12 @@
 #' @param alpha numeric, tail index
 #' @param xi numeric, inverse of \code{alpha}
 #' @return The density of the Pareto 1 distribution at points \code{x} \deqn{f(x)=alpha*mu^alpha/x^(alpha+1)} Expected value exists when \code{alpha} is larger than 1, and is \deqn{E[X]=alpha/(alpha-1)}
-#' @seealso \code{\link{ppareto1}}, \code{\link{qpareto1}} and \code{\link{rpareto1}} 
+#' @seealso \code{\link{ppareto1}}, \code{\link{qpareto1}} and \code{\link{rpareto1}}
 #' @examples
 #' # density of a Pareto1(1,1.5) at point 2
 #' dpareto1(2, 1, alpha=1.5)
 #' 0.265165
-#' # expected value of a Pareto1(1,1.5) 
+#' # expected value of a Pareto1(1,1.5)
 #' integrate(function(x) x*dpareto1(x, 1, alpha=1.5),-Inf,Inf)
 #' # theoretical expected value
 #' 1*(1.5)/(1.5-1)
@@ -24,12 +24,12 @@ dpareto1 <- function (x, mu=1, alpha=1/xi, xi=1/alpha)  { (alpha*mu^alpha/abs(x)
 #' @param alpha numeric, tail index
 #' @param xi numeric, inverse of \code{alpha}
 #' @return the c.d.f. of the Pareto 1 distribution at points \code{x} \deqn{F(x)=1-(mu/x)^(alpha)} Expected value exists when \code{alpha} is larger than 1, and is \deqn{E[X]=alpha/(alpha-1)}
-#' @seealso \code{\link{dpareto1}}, \code{\link{qpareto1}} and \code{\link{rpareto1}} 
+#' @seealso \code{\link{dpareto1}}, \code{\link{qpareto1}} and \code{\link{rpareto1}}
 #' @examples
 #' # probability to a Pareto1(1,1.5) to be smaller than 2
 #' ppareto1(2, 1, 1.5)
 #' 0.6464466
-#' # expected value of a Pareto1(1,1.5) 
+#' # expected value of a Pareto1(1,1.5)
 #' integrate(function(x) (1-ppareto1(x, 1, alpha=1.5)),0,Inf)
 #' # theoretical expected value
 #' 1*(1.5)/(1.5-1)
@@ -41,13 +41,13 @@ ppareto1 <- function (x, mu=1, alpha=1/xi, xi=1/alpha)  { (1 - ( abs(x)/mu )^(-a
 #' @param p numeric, (probabilities) vector
 #' @param mu numeric, lower bound, default is 1
 #' @param alpha numeric, tail index
-#' @param xi numeric, inverse of \code{alpha}  
+#' @param xi numeric, inverse of \code{alpha}
 #' @return the quantile function of the Pareto 1 distribution at points \code{p}
-#' @seealso \code{\link{dpareto1}}, \code{\link{ppareto1}} and \code{\link{rpareto1}} 
+#' @seealso \code{\link{dpareto1}}, \code{\link{ppareto1}} and \code{\link{rpareto1}}
 #' @examples
 #' qpareto1(.5, 1, alpha=1.5)
 #' 1.587401
-#' # expected value of a Pareto1(1,1.5) 
+#' # expected value of a Pareto1(1,1.5)
 #' integrate(function(x) qpareto1(x, 1, alpha=1.5),0,1)
 #' # theoretical expected value
 #' 1*(1.5)/(1.5-1)
@@ -61,11 +61,11 @@ qpareto1 <- function (p, mu, alpha=1/xi, xi=1/alpha)  { mu*(1-p)^(-1/alpha)*((p>
 #' @param alpha numeric, tail index
 #' @param xi numeric, inverse of \code{alpha}
 #' @return generates \code{n} values of the Pareto 1 distribution
-#' @seealso \code{\link{dpareto1}}, \code{\link{ppareto1}} and \code{\link{qpareto1}} 
+#' @seealso \code{\link{dpareto1}}, \code{\link{ppareto1}} and \code{\link{qpareto1}}
 #' @examples
 #' set.seed(123)
 #' rpareto1(6, 1, alpha=1.5)
-#' # expected value of a Pareto1(1,1.5) 
+#' # expected value of a Pareto1(1,1.5)
 #' mean(rpareto1(1e6, 1, alpha=1.5))
 #' # theoretical expected value
 #' 1*(1.5)/(1.5-1)
@@ -104,10 +104,10 @@ MLE.pareto1 <- function(data, weights=rep(1,length(x)), threshold=min(x))
 #' @param xi numeric, inverse of \code{alpha}
 #' @param beta numeric, scaling paramater, default = 1
 #' @return the c.d.f. of the Generalized Pareto distribution at points \code{x}, \deqn{F(x)=1-(1+xi*(x-mu)/beta)^(-1/xi)} (assuming \code{xi} non null). The expected value is then \deqn{E[X]=mu+beta/(1-xi)}
-#' @seealso \code{\link{dgpd}}, and \code{\link{rgpd}} 
+#' @seealso \code{\link{dgpd}}, and \code{\link{rgpd}}
 #' @examples
 #' pgpd(2, xi=1/1.5, 1, 1)
-#' ## expected value of a GPD(1,1.5,0,1) 
+#' ## expected value of a GPD(1,1.5,0,1)
 #' integrate(function(x) 1-pgpd(x,xi=1/1.5,mu=0,beta=1),0,Inf)
 #' ## theoretical value
 #' 0+1/(1-1/1.5)
@@ -121,10 +121,10 @@ pgpd <- function (x, xi=1/alpha, alpha=1/xi, mu = 0, beta = 1)  { (1 - (1+(xi*(x
 #' @param xi numeric, inverse of \code{alpha}
 #' @param beta numeric, scaling paramater, default = 1
 #' @return the density of the Pareto 1 distribution at points \code{x}, \deqn{f(x)=(1/beta)*(1+xi*(x-mu)/beta)^(-1/xi-1)}
-#' @seealso \code{\link{pgpd}}, and \code{\link{rgpd}} 
+#' @seealso \code{\link{pgpd}}, and \code{\link{rgpd}}
 #' @examples
 #' dgpd(2, xi=1/1.5, 1, 1)
-#' # expected value of a GPD(1,1.5,0,1) 
+#' # expected value of a GPD(1,1.5,0,1)
 #' integrate(function(x) x*dgpd(x,alpha=1.5,mu=0,beta=1),0,Inf)
 #' integrate(function(x) x*dgpd(x,xi=1/1.5,mu=0,beta=1),0,Inf)
 #' ## theoretical value
@@ -139,7 +139,7 @@ dgpd <- function (x, xi=1/alpha, alpha=1/xi, mu = 0, beta = 1)  { (beta^(-1))*(1
 #' @param xi numeric, inverse of \code{alpha}
 #' @param beta numeric, scaling paramater, default = 1
 #' @return generates \code{n} values of the Pareto 1 distribution at points \code{x}
-#' @seealso \code{\link{dgpd}}, and \code{\link{pgpd}} 
+#' @seealso \code{\link{dgpd}}, and \code{\link{pgpd}}
 #' @examples
 #' rgpd(10, xi=1/1.5, 1, 1)
 #' # expected value of a GPD(1,1.5,0,1)
@@ -162,17 +162,17 @@ rgpd <- function (n, xi=1/alpha, alpha=1/xi, mu = 0, beta = 1)  { mu + (beta/xi)
 #' w <- rgamma(100,10,10)
 #' estim <- MLE.gpd(data=x, weights=w, threshold=1)
 #' estim$par.ests
-MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes = NA, method="ml", information = c("observed", "expected"), ...) 
+MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes = NA, method="ml", information = c("observed", "expected"), ...)
 {
   n <- length(data)
-  if (is.na(nextremes) && is.na(threshold)) 
+  if (is.na(nextremes) && is.na(threshold))
     stop("Enter either a threshold or the number of upper extremes")
-  if (!is.na(nextremes) && !is.na(threshold)) 
+  if (!is.na(nextremes) && !is.na(threshold))
     stop("Enter EITHER a threshold or the number of upper extremes")
-  if (!is.na(nextremes)) 
-    
+  if (!is.na(nextremes))
+
     data <- as.numeric(data)
-  
+
   foo=cbind(data,weights)
   foo=foo[foo[,1]>threshold,]
   x=foo[,1]
@@ -192,7 +192,7 @@ MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes =
     beta <- theta[2]
     cond1 <- beta <= 0
     cond2 <- (xi <= 0) && (max(tmp) > (-beta/xi))
-    if (cond1 || cond2) 
+    if (cond1 || cond2)
       f <- 1e+06
     else {
       y <- logb(1 + (xi * tmp)/beta)
@@ -202,7 +202,7 @@ MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes =
     f
   }
   fit <- optim(theta, negloglik, hessian = TRUE, ..., tmp = excess)
-  if (fit$convergence) 
+  if (fit$convergence)
     warning("optimization may not have succeeded")
   par.ests <- fit$par
   converged <- fit$convergence
@@ -224,20 +224,20 @@ MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes =
     if (!is.numeric(gamma)) {
         stop("gamma should be numeric.")
     }
-    
+
     if (!is.numeric(kappa)) {
         stop("kappa should be numeric.")
     }
-    
+
     if (!is.numeric(tau)) {
         stop("tau should be numeric.")
     }
-    
+
 
     if (any(tau >= 0)) {
         stop("tau should be strictly negative.")
     }
-    
+
     if (any(gamma <= 0)) {
         stop("gamma should be strictly positive.")
     }
@@ -251,11 +251,11 @@ MLE.gpd <- function (data, weights=rep(1,length(x)), threshold = NA, nextremes =
     lg <- length(gamma)
     lk <- length(kappa)
     lt <- length(tau)
-    
+
     l <- c(ly, lg, lk, lt)
 
     ind <- which(l > 1)
-    
+
     if (length(ind) > 1) {
 
         if (!length(unique(l[ind])) == 1) {
@@ -320,11 +320,11 @@ pepd <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
     .EPDinput(x, gamma, kappa, tau, kappaTau = FALSE)
-    
+
     p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma)
-  
+
     p[x <= 1] <- 0
 
     if (any(kappa <= pmax(-1, 1/tau))) {
@@ -334,11 +334,11 @@ pepd <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
             p <- NA
         }
     }
-    
+
     if (!lower.tail) p <- 1-p
-    
+
     if (log.p) p <- log(p)
-    
+
     return(p)
 }
 
@@ -363,54 +363,54 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
 .EPDinput(p, gamma, kappa, tau, kappaTau = TRUE)
-    
+
     if (log.p) p <- exp(p)
-    
+
     if (!lower.tail) p <- 1-p
-    
+
     if (any(p < 0 | p > 1)) {
         stop("p should be between 0 and 1.")
     }
-    
+
     l <- length(p)
     Q <- numeric(l)
-  
+
     endpoint <- 10
-    
+
     if (any(p < 1)) {
-        
+
         mx <- max(p[p < 1])
-        
+
         while (pepd(endpoint, gamma, kappa, tau) <= mx) {
             endpoint <- endpoint*10
         }
     }
 
     for (i in 1:l) {
-        
+
         if (p[i] < .Machine$double.eps) {
             # p=0 case
             Q[i] <- 1
-            
+
         } else if (abs(p[i]-1) > .Machine$double.eps) {
             # 0<p<1 case
-            
+
             # Function to minimise
             f <- function(x) {
                 ((1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau)))^2
             }
             # If minimising fails return NA
             Q[i] <- tryCatch(optimise(f, lower=1, upper=endpoint)$minimum, error=function(e) NA)
-            
+
         } else {
             # p=1 case
             Q[i] <- Inf
         }
-        
+
     }
-    
+
     return(Q)
 }
 
@@ -432,12 +432,12 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
 #' mean(repd(1e4, gamma=.5,kappa=1,tau=-1),quasimc=TRUE)
 repd <-  function(n, gamma, kappa, tau = -1, quasimc = FALSE) {
   if(quasimc == FALSE) v=qepd(runif(n), gamma=gamma, kappa=kappa, tau=tau)
-  if(quasimc == TRUE){	
+  if(quasimc == TRUE){
     if (!require("randtoolbox")) install.packages("randtoolbox")
     require(randtoolbox)
     u= halton(n)
     v=qepd(u, gamma=gamma, kappa=kappa, tau=tau)
-  } 
+  }
     return(v)
 }
 
@@ -488,32 +488,32 @@ EPD <- function(data, weights=rep(1,length(data)), rho = -1, start = NULL, direc
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
     df=data.frame(data,weights)
     df=df[order(df$data),]
     w <- df$weights/sum(df$weights)
     X <- as.numeric(df$data)
     n <- length(X)
     K <- (n-1)
-    
+
     if (n == 1) {
         stop("We need at least two data points.")
     }
-    
+
     if (direct) {
         EPD <- .EPDdirectMLE(data=data, weights=w, rho=rho, start=start, warnings=warnings)
     } else {
         # Select parameter using approach of Beirlant, Joosens and Segers (2009).
         EPD <- .EPDredMLE(data=data, weights=w, rho=rho)
     }
-    
+
     if (length(rho) == 1) {
         EPD$gamma <- as.vector(EPD$gamma)
         EPD$kappa <- as.vector(EPD$kappa)
         EPD$tau <- as.vector(EPD$tau)
-        
+
     }
-    
+
     if (length(rho) == 1) {
         return(list(k=K, gamma=unlist(EPD$gamma[K]), kappa=unlist(EPD$kappa[K]), tau=unlist(EPD$tau[K])))
     } else {
@@ -532,70 +532,70 @@ EPD <- function(data, weights=rep(1,length(data)), rho = -1, start = NULL, direc
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
     #   Fit EPD using approach of Beirlant, Joosens and Segers (2009).
-    
+
     df=data.frame(data,weights)
     df=df[order(df$data),]
     w <- df$weights/sum(df$weights)
     X <- as.numeric(df$data)
-    
+
     n <- length(X)
     K <- (n-1)
-    
+
     if (n == 1) {
         stop("We need at least two data points.")
     }
-    
+
     nrho <- length(rho)
     rho.orig <- rho
-    
+
     H <- Hill(data, w)$xi
-    
+
     if (all(rho > 0) & nrho == 1) {
         rho <- .rhoEst(data, alpha=1, tau=rho, weights=w)$rho
         beta <- -rho
-        
+
     } else if (all(rho < 0)) {
         beta <- -rho
-        
+
     } else {
         stop("rho should be a single positive number or a vector (of length >=1) of negative numbers.")
     }
-    
-    
+
+
     gamma <- matrix(0, n-1, nrho)
     kappa <- matrix(0, n-1, nrho)
     tau <- matrix(0, n-1, nrho)
-    
+
     beta <- -rho
-    
+
     for (j in 1:nrho) {
-        
+
         if (nrho == 1 & all(rho.orig > 0)) {
             tau[K, 1] <- -beta[K]/H
-            
-            
+
+
             rhovec <- rho
         } else {
-            
+
             tau[K, j] <- -beta[j]/H
-            
+
             rhovec <- rep(rho[j], n-1)
         }
-        
-        
+
+
         E <- numeric(n-1)
-        
+
         for (k in K) {
             i <- 1:k
             E[k] <- sum( w[n-k+i] * (X[n-k+i]/X[n-k])^tau[k,j] )
         }
-        
+
         kappa[K,j] <- H * (1-2*rhovec[K]) * (1-rhovec[K])^3 / rhovec[K]^4 * (E[K] - 1 / (1-rhovec[K]))
-        
+
         gamma[K,j] <- H - kappa[K,j] * rhovec[K] / (1 - rhovec[K])
-        
+
     }
-    
+
     return(list(gamma=gamma, kappa=kappa, tau=tau))
 }
 
@@ -609,60 +609,60 @@ EPD <- function(data, weights=rep(1,length(data)), rho = -1, start = NULL, direc
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
-    
+
+
     df=data.frame(data,weights)
     df=df[order(df$data),]
     w <- df$weights/sum(df$weights)
     X <- as.numeric(df$data)
     n <- length(X)
-    
+
     if (n == 1) {
         stop("We need at least two data points.")
     }
-    
+
     nrho <- length(rho)
     rho.orig <- rho
-    
+
     H <- Hill(data, w)$xi
-    
+
     if (all(rho > 0) & nrho == 1) {
         rho <- .rhoEst(data, alpha=1, tau=rho, weights=w)$rho
         beta <- -rho
-        
+
     } else if (all(rho < 0)) {
         beta <- -rho
-        
+
     } else {
         stop("rho should be a single positive number or a vector (of length >=1) of negative numbers.")
     }
-    
+
     gamma <- matrix(0, n-1, nrho)
     kappa <- matrix(0, n-1, nrho)
     tau <- matrix(0, n-1, nrho)
-    
+
     for (j in 1:nrho) {
-     
+
         for (k in (n-1):(n-1)) {
-            
+
             epddf <- df[df$data > X[n-k],]
             epddata <- epddf$data/X[n-k]
             epdw    <- epddf$w
-            
+
             if (nrho == 1 & all(rho.orig > 0)) {
                 tau[k,1] <- -beta[k]/H
-                
+
             } else {
-                
+
                 tau[k,j] <- -beta[j]/H
             }
-            
+
             if (is.null(start)) {
                 start2 <- numeric(2)
                 start2[1] <- H
                 start2[2] <- 0
             } else if (is.matrix(start)) {
-                
+
                 if (nrow(start >= n-1)) {
                     start2 <- numeric(2)
                     start2[1] <- start[k,1]
@@ -670,11 +670,11 @@ EPD <- function(data, weights=rep(1,length(data)), rho = -1, start = NULL, direc
                 } else {
                     stop("start does not contain enough rows.")
                 }
-                
+
             } else {
                 start2 <- start
             }
-            
+
             if (tau[k,j] < 0) {
                 tmp <- EPDfit(epddata, start=start2, tau=tau[k,j], weights=epdw)
                 gamma[k,j] <- tmp[1]
@@ -682,11 +682,11 @@ EPD <- function(data, weights=rep(1,length(data)), rho = -1, start = NULL, direc
             } else {
                 gamma[k,j] <- kappa[k,j] <- NA
             }
-            
+
         }
-        
+
     }
-    
+
     return(list(gamma=gamma, kappa=kappa, tau=tau))
 }
 
@@ -716,7 +716,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE, weights=rep(1
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
     w <- weights/sum(weights)
     if (is.numeric(start) & length(start) == 2) {
         gamma_start <- start[1]
@@ -724,8 +724,8 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE, weights=rep(1
     } else {
         stop("start should be a 2-dimensional numeric vector.")
     }
-    
-    
+
+
     if (ifelse(length(data) > 1, var(data) == 0, 0)) {
         sg <- c(NA, NA)
     } else {
@@ -733,7 +733,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE, weights=rep(1
         fit <- optim(par=c(gamma_start, kappa_start), fn=.EPDneglogL, Y=data, tau=tau, weights=w)
 
         sg <- fit$par
-        
+
         if (fit$convergence > 0 & warnings) {
             warning("Optimisation did not complete succesfully.")
             if (!is.null(fit$message)) {
@@ -756,11 +756,11 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE, weights=rep(1
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
     w <- weights/sum(weights)
     gamma <- theta[1]
     kappa <- theta[2]
-    
+
     if (kappa <= max(-1, 1/tau) | gamma <= 0) {
         logL <- -10^6
     } else {
@@ -780,42 +780,42 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE, weights=rep(1
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
-    
+
+
     if (alpha <= 0) {
         stop("alpha should be strictly positive.")
     }
-    
+
     if (tau <= 0) {
         stop("tau should be strictly positive.")
     }
-  
+
     df=data.frame(data,weights)
     df=df[order(df$data),]
     w <- df$weights/sum(df$weights)
     X <- as.numeric(df$data)
-    
+
     n <- length(X)
     rho <- numeric(n)
     Tn <- numeric(n)
     K <- (n-1)
-    
+
     M_alpha <- numeric(n)
     M_alpha_theta1 <- numeric(n)
     M_alpha_theta2 <- numeric(n)
-    
+
     l <- log(X[n-K+1])
     for (k in K) {
         M_alpha[k] <- sum( (l[1:k]-log(X[n-k]))^alpha ) / k
         M_alpha_theta1[k] <- sum( (l[1:k]-log(X[n-k]))^(alpha*theta1) ) / k
         M_alpha_theta2[k] <- sum( (l[1:k]-log(X[n-k]))^(alpha*theta2) ) / k
     }
-    
+
     Tn[K] <- ( (M_alpha[K]/gamma(alpha+1))^tau - (M_alpha_theta1[K]/gamma(alpha*theta1+1))^(tau/theta1)  ) /
     ( (M_alpha_theta1[K]/gamma(alpha*theta1+1))^(tau/theta1) - (M_alpha_theta2[K]/gamma(alpha*theta2+1))^(tau/theta2)  )
-    
+
     rho[K] <- 1 - ( 2 * Tn[K] / ( 3 - Tn[K]) ) ^ (1/alpha)
-    
+
     return(list(k=K, rho=rho[K], Tn=Tn[K]))
 }
 
@@ -830,27 +830,27 @@ ProbEPD <- function(data, q, gamma, kappa, tau, ...) {
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
-    
+
+
     if ( length(gamma) != length(kappa) | length(gamma) != length(tau)) {
         stop("gamma, kappa and tau should have equal length.")
     }
-    
+
     X <- as.numeric(sort(data))
-    
-    
+
+
     n <- length(X)
     prob <- numeric(n)
     K <- (n-1)
-    
+
     K2 <- K[which(gamma[K] > 0)]
-    
+
     prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
     prob[prob < 0 | prob > 1] <- NA
-  
-    
+
+
     return(list(k=K, P=prob[K], q=q))
-    
+
 }
 
 #' Large Return Period associated to the Extended Pareto distribution
@@ -877,34 +877,34 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, ...) {
     #    https://github.com/TReynkens/ReIns/blob/master/R/EPD.R
     #    https://github.com/TReynkens/ReIns/blob/master/R/Distributions.R
     #
-    
+
     if ( length(gamma) != length(kappa) | length(gamma) != length(tau)) {
         stop("gamma, kappa and tau should have equal length.")
     }
-    
+
     X <- as.numeric(sort(data))
     n <- length(X)
     r <- numeric(n)
     K <- (n-1)
-    
+
     K2 <- K[which(gamma[K] > 0)]
-    
+
     r[K2] <- (n+1)/(K2+1) / (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
-    
-    
+
+
     r[which(gamma[K] <= 0)] <- NA
-    
+
     r[r <= 0] <- NA
-    
+
     return(list(k=K, R=r[K], q=q))
-    
+
 }
 
 #' @title Top_Share
 #' @description This function estimates Top Share
 #'
 #' @param data numeric, a vector of observations
-#' @param weight numeric, a vector of weights (default is equal weights) 
+#' @param weight numeric, a vector of weights (default is equal weights)
 #' @param p numeric, the probability level (default 0.01 for the top 1\%)
 #' @param q numeric, (possibly a vector), the probability level to model a Pareto distribution (default 0.1)
 #' @param method is the distribution considered (default \code{"edf"} for the empirical distribution function, but can be \code{"pareto1"}, \code{"gpd"} or  \code{"epd"})
@@ -940,29 +940,29 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
     if (p>1) stop('Error: p should be smaller than 1 \n\n')
     if (p<0) stop('Error: p should be greater than 0 \n\n')
     ## Top Share based on Pareto I and GPD Models
-    
+
     if (min(q)>1) stop('Error: q should be smaller than 1 \n\n')
     if (max(q)<0) stop('Error: q should be greater than 0 \n\n')
-    
+
     vindex=valpha=vcoef=vgamma=vkappa=vshare.index=vshare.pareto=vthreshold=vtau=vbeta=vxi=vk=rep(NA,length(q))
-    
+
     L="error"
     ## Top Share based on the Empirical Distribution Function (EDF)
-    
+
     if(method=="edf") {
         for(s in 1:length(q)){
-            
+
             up=Hmisc::wtd.quantile(x, weights=weights, probs=1-p, normwt=TRUE) # weighted (1-p)-quantile
             up=as.numeric(up)
-        
+
         vindex[s]=tis=sum(weights*x*(x>up))/sum(weights*x)
         }
         L=list(index=vindex,share=p,k=length(x),method="edf")
     }
-    
-    
+
+
     if(method=="pareto1" || method=="pareto2" || method=="gpd") {
-        
+
               for(s in 1:length(q)){
         u=Hmisc::wtd.quantile(x, weights=weights, probs=1-q[s], normwt=TRUE)
         u=as.numeric(u)  # threshold = weighted (1-q)-quantile
@@ -1004,13 +1004,13 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
               }
     L=list(index=vindex,alpha=valpha,xi=vxi,beta=vbeta,share.index=p,
         share.pareto=vshare.pareto,threshold=vthreshold,k=vk, method=method)}
-    
+
     ## Top Share based on EPD Model
     if(method=="epd") {
     for(s in 1:length(q)){
         u=Hmisc::wtd.quantile(x, weights=weights, probs=1-q[s], normwt=TRUE)
         u=as.numeric(u)  # threshold = weighted (1-q)-quantile
-        
+
         dataqq=x[x>=u]
         coef=EPD(x[x>=u], weights=weights[x>=u], direct=epd.direct)
         delta=coef$kappa
@@ -1026,7 +1026,7 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
             d[x<=u] <- 0
             return(d) }
         ff_bis <- function(x) (1-pextpareto(1/x, u=u, delta=delta, tau=tau, alpha=alpha))/x^2
-        
+
         if (alpha<=1) {tis=NaN    # infinite mean (tail=alpha=1/xi < 1)
         } else if(delta<max(-1,1/tau)) {tis=NaN   # kappa should be largen than max(-1,1/tau)
         } else if(p<=q[s]) {
@@ -1041,7 +1041,7 @@ Top_Share <- function(data, weights=rep(1,length(data)), p=.01, q=.1, method="ed
             if(inherits(Eu, "try-error")) tis=NaN
             if(!inherits(Eu, "try-error")) tis = 1-(1-p)*xp/Ex
         }
-    
+
     vindex[s] <- tis
     valpha[s] <- 1/coef$gamma
     vgamma[s]=coef$gamma
@@ -1061,7 +1061,7 @@ share.pareto=vshare.pareto,threshold=vthreshold, k=vk, method=method)
 #' Pareto diagrams - Pareto 1, GPD and EPD
 #'
 #' @param data numeric, a vector of observations
-#' @param weight numeric, a vector of weights (default is equal weights) 
+#' @param weight numeric, a vector of weights (default is equal weights)
 #' @param p numeric, the probability level (default 0.01 for the top 1\%)
 #' @param q numeric, the probability level to model a Pareto distribution (default 0.1)
 #' @param viz logical, \code{TRUE} to plot the estimates
@@ -1093,7 +1093,7 @@ res2=Top_Share(data=x, weights=w, p=p, q=q, method="gpd")
 res3=Top_Share(data=x, weights=w, p=p, q=q, method="epd", epd.direct= TRUE)
 idx=which(x>0)   # Keep positive data
 if(viz) par(mfrow=c(1,1), mar=c(4, 4, 4, 1))  # bottom, left, top, right
-if(viz) plot(log(x[id]), log(1-Fw), xlab="log(x)", ylab="log(1-F(x))", cex=.6, col="gray")
+if(viz) plot(log(x[idx]), log(1-Fw)[idx], xlab="log(x)", ylab="log(1-F(x))", cex=.6, col="gray")
 
 u=seq(log(res1$threshold), log(max(x)), length.out=500)
 yhat.par1=ppareto1(exp(u),mu=res1$threshold,alpha=res1$alpha)
@@ -1119,7 +1119,7 @@ legend(log(res99$threshold)-top.x, top.y, legend=expression(italic('q')[99]), ce
 #' Table of top shares (using three thresholds)
 #'
 #' @param data numeric, a vector of observations
-#' @param weight numeric, a vector of weights (default is equal weights) 
+#' @param weight numeric, a vector of weights (default is equal weights)
 #' @param p numeric, the probability level (default 0.01 for the top 1\%)
 #' @param q numeric (possibly a vector), the probability level to model a Pareto distribution (default \code{c(0.1, 0.05, 0.01)} for the top 10\%, 5\% and 1\%)
 #' @param md logical \code{TRUE} to have the table in a markdown format (default is \code{FALSE})
@@ -1144,20 +1144,20 @@ Table_Top_Share = function(data, weights=rep(1,length(data)), p=.01, q=c(.1,.05,
      x=x[idx]
      w=w[idx]
      Fw=cumsum(w)/sum(w)
-     
+
     thresholds=q
     res0=Top_Share(data=x, weights=w, p=.01,q=thresholds, method="edf")
     res1=Top_Share(data=x, weights=w, p=.01,q=thresholds, method="pareto1")
     res2=Top_Share(data=x, weights=w, p=.01,q=thresholds, method="gpd")
     res3=Top_Share(data=x, weights=w, p=.01,q=thresholds, method="epd")
-    
+
     alpha=rbind(100*(1-res1$share.pareto),res1$alpha,res2$alpha,res3$alpha)
     rownames(alpha) <- c("cutoff","Pareto 1", "GPD", "EPD")
     colnames(alpha)=paste("top",round(100*(1-q)),"%",sep="")
     res=rbind(100*(1-res1$share.pareto),res0$index,res1$index,res2$index,res3$index)
     rownames(res) <- c("cutoff","edf","Pareto 1", "GPD", "EPD")
     colnames(res)=paste("top",round(100*(1-q)),"%",sep="")
-    
+
 
 if(verbose){
 cat("----- top shares ------------------\n")
@@ -1174,7 +1174,7 @@ if(md){
     rownames(dt)=c("EDF","Pareto_1","GPD","EPD")
     cat(kable(dt,caption="Top Share (in percent)",
     bootstrap_options = c("striped", "hover"), full_width = FALSE))
-    
+
     dt=data.frame(alpha)[-1,]
     names(dt)=paste("top",round(100*(1-q)),"%",sep="")
     rownames(dt)=c("Pareto_1","GPD","EPD")
@@ -1187,7 +1187,7 @@ if(md){
 #' Top Income plot
 #'
 #' @param data numeric, a vector of observations
-#' @param weight numeric, a vector of weights (default is equal weights) 
+#' @param weight numeric, a vector of weights (default is equal weights)
 #' @param p numeric, probability level (default 0.01)
 #' @param thr numeric, vector of probability levels to model a Pareto distribution (default is \code{seq(.85,.999,by=.001)} from 0.85 up to 0.999)
 #' @param tail_index logical to plot the tail index (default \code{TRUE})
@@ -1199,7 +1199,7 @@ if(md){
 #' df <- read.table(url_1,sep=";",header=TRUE)
 #' \dontrun{Top_Incomes(data = df$y, weights = df$w)}
 Top_Incomes = function(data, weights=rep(1,length(data)), p=.01, thr=seq(.85,.999,by=.001), tail_index = TRUE,...){
-	
+
 	 if (min(weights)<0) stop('Error: weights should be positive \n\n')
      w = weights/sum(weights)
      x = data
@@ -1207,18 +1207,18 @@ Top_Incomes = function(data, weights=rep(1,length(data)), p=.01, thr=seq(.85,.99
      x=x[idx]
      w=w[idx]
      Fw=cumsum(w)/sum(w)
-     
+
 thr=round(thr,10)
 tail=matrix(0,NROW(thr),7)
 tis.index=matrix(0,NROW(thr),7)
 tis.alpha=matrix(0,NROW(thr),7)
 for(i in 1:NROW(thr)) {
-    
+
     res1=Top_Share(data=x, weights=w, p=p, q=1-thr[i], method="pareto1")
     res2=Top_Share(data=x, weights=w, p=p, q=1-thr[i], method="gpd")
     res3=Top_Share(data=x, weights=w, p=p, q=1-thr[i], method="epd", epd.direct=TRUE)
     res4=Top_Share(data=x, weights=w, p=p, method="edf")
-    
+
     tis.index[i,1]=res1$threshold     # threshold y0
     tis.index[i,2]=res1$k          # k largest observations
     tis.index[i,3]=thr[i]             # quantile threshold
@@ -1226,7 +1226,7 @@ for(i in 1:NROW(thr)) {
     tis.index[i,5]=res2$index
     tis.index[i,6]=res3$index
     tis.index[i,7]=res4$index
-    
+
     tis.alpha[i,1]=res2$threshold           # threshold y0
     tis.alpha[i,2]=res2$k          # k largest observations
     tis.alpha[i,3]=thr[i]             # quantile threshold
@@ -1234,7 +1234,7 @@ for(i in 1:NROW(thr)) {
     tis.alpha[i,5]=res2$alpha
     tis.alpha[i,6]=res3$alpha
     tis.alpha[i,7]=0
-    
+
 }
 
 # graphical parameters

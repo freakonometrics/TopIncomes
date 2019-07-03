@@ -25,7 +25,7 @@ Density of the Pareto 1 distribution
 # density of a Pareto1(1,1.5) at point 2
 dpareto1(2, 1, alpha=1.5)
 0.265165
-# expected value of a Pareto1(1,1.5) 
+# expected value of a Pareto1(1,1.5)
 integrate(function(x) x*dpareto1(x, 1, alpha=1.5),-Inf,Inf)
 # theoretical expected value
 1*(1.5)/(1.5-1)

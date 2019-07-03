@@ -25,7 +25,7 @@ Cumulative distribution function of the Pareto 1 distribution
 # probability to a Pareto1(1,1.5) to be smaller than 2
 ppareto1(2, 1, 1.5)
 0.6464466
-# expected value of a Pareto1(1,1.5) 
+# expected value of a Pareto1(1,1.5)
 integrate(function(x) (1-ppareto1(x, 1, alpha=1.5)),0,Inf)
 # theoretical expected value
 1*(1.5)/(1.5-1)

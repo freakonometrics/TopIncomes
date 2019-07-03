@@ -25,7 +25,7 @@ Density of the Generalized Pareto distribution (GPD)
 }
 \examples{
 dgpd(2, xi=1/1.5, 1, 1)
-# expected value of a GPD(1,1.5,0,1) 
+# expected value of a GPD(1,1.5,0,1)
 integrate(function(x) x*dgpd(x,alpha=1.5,mu=0,beta=1),0,Inf)
 integrate(function(x) x*dgpd(x,xi=1/1.5,mu=0,beta=1),0,Inf)
 ## theoretical value
